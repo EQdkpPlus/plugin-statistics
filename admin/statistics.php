@@ -168,6 +168,12 @@ class StatisticsViewer extends page_generic{
 		
 		$date_from = $this->time->mktime(0, 0, 0, $m, 1, $y);
 		$date_to = $this->time->mktime(0, 0, 0, $m, $d, $y);
+		if($date_from == $date_to){
+			if($m > 1) $m = $m-1;
+			$date_from = $this->time->mktime(0, 0, 0, $m, 1, $y);
+		}
+		
+		
 		$_date_from = $this->time->user_date($date_from , false, false, false, function_exists('date_create_from_format'));
 		$_date_to = $this->time->user_date($date_to , false, false, false, function_exists('date_create_from_format'));
 

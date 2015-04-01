@@ -111,7 +111,7 @@ class StatisticsViewer extends page_generic{
 					$date = $this->timeformat($row['raid_date']);
 					$intIndex = $indexArray[$date];
 					if($intIndex !== false){
-						$arrRaids[$intIndex][1] = $arrRaids[$intIndex][1]++;
+						$arrRaids[$intIndex][1] = $arrRaids[$intIndex][1]+1;
 					}
 				}
 			}

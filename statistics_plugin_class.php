@@ -67,7 +67,7 @@ class statistics extends plugin_generic{
 		// permissions: 'a'=admins, 'u'=user
 		// ('a'/'u', Permission-Name, Enable? 'Y'/'N', Language string, array of user-group-ids that should have this permission)
 		// Groups: 2 = Super-Admin, 3 = Admin, 4 = Member
-		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),	array(2,3));
+		$this->add_permission('a', 'manage',	'N', $this->user->lang('view'),	array(2,3));
 
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());

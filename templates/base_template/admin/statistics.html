@@ -1,0 +1,127 @@
+<div class="breadcrumb-container">
+	<ul class="breamcrumb">
+		<li><a href="{EQDKP_CONTROLLER_PATH}{SID}" title="{L_home}"><i class="fa fa-home"></i></a></li>
+		<li><a href="{EQDKP_ROOT_PATH}admin/{SID}">{L_menu_admin_panel}</a>
+		<li class="current"><a>{L_st_view_statistics}</a></li>
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<div class="contentHeader">
+	<h1 class="contentTitle">{L_st_view_statistics}</h1>
+</div>
+
+<!-- 
+<script>
+$.jqplot('statisticsGraph', statData, {
+	axes:{
+		xaxis:{
+			renderer:$.jqplot.DateAxisRenderer
+		},
+		yaxis:{
+			
+		}
+	},
+	series:[{lineWidth:4, markerOptions:{style:'square'}}]
+});
+</script>
+-->
+<script>
+$(document).ready(function(){
+	var statPlot = false;
+	
+	$('#cal_filter_date_from, #cal_filter_date_to, .chartTrigger').on('change', function(){
+		var is_clicks = ($('#cb_clicks').is(':checked')) ? 1 : 0;
+		var is_visits = ($('#cb_visits').is(':checked')) ? 1 : 0;
+		var is_raids = ($('#cb_raids').is(':checked')) ? 1 : 0;
+		var is_items = ($('#cb_items').is(':checked')) ? 1 : 0;
+		var is_user_regs = ($('#cb_user_regs').is(':checked')) ? 1 : 0;
+		var is_raidsignups = ($('#cb_raidsignups').is(':checked')) ? 1 : 0;
+		
+		jQuery.ajax({
+			type: "POST",
+			url: "statistics.php{SID}&data=1",
+			data: {
+				from: $('#cal_filter_date_from').val(),
+				to: $('#cal_filter_date_to').val(),
+				clicks: ($('#cb_clicks').is(':checked')) ? 1 : 0,
+				visits: ($('#cb_visits').is(':checked')) ? 1 : 0,
+				raids: ($('#cb_raids').is(':checked')) ? 1 : 0,
+				items: ($('#cb_items').is(':checked')) ? 1 : 0,
+				user_regs: ($('#cb_user_regs').is(':checked')) ? 1 : 0,
+				raidsignups: ($('#cb_raidsignups').is(':checked')) ? 1 : 0,
+			}, 
+			cache: false,
+			dataType: "json",
+			success: function(response){
+				
+				var mydata = [ ];
+				var myseries = [ ];
+				for (var $key in response) {
+					var $row = response[$key];
+					
+					mydata.push($row.data);
+					myseries.push({label: $row.label, highlighter: { formatString: $row.label+': %s, %s'}})
+				}
+				
+				console.log(mydata);
+				
+				if(statPlot) statPlot.destroy();
+				
+				statPlot = $.jqplot('statisticsGraph', mydata, {
+					axes:{
+						xaxis:{
+							renderer:$.jqplot.DateAxisRenderer
+						},
+						yaxis:{
+							min: 0,
+							tickDecimals: 0,
+						}
+					},
+					highlighter: { show: true },
+					legend: {show: true, location: 'nw', },
+					series: myseries,
+				});
+			}
+		});
+	});
+
+	$(".chartTrigger").trigger('change');
+})
+</script>
+<div id="statisticsGraph"></div>
+<fieldset class="settings mediumsettings">
+<legend>{L_settings}</legend>
+	<dl>
+		<dt><label>{L_st_timerange}</label></dt>
+		<dd>{FILTER_DATE_FROM} - {FILTER_DATE_TO}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_st_visits}</label></dt>
+		<dd><input type="checkbox" name="visits" value="1" checked="checked" id="cb_visits" class="chartTrigger"/></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_st_clicks}</label></dt>
+		<dd><input type="checkbox" name="clicks" value="1" checked="checked" id="cb_clicks" class="chartTrigger"/></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_st_user_regs}</label></dt>
+		<dd><input type="checkbox" name="user_regs" value="1" id="cb_user_regs" class="chartTrigger"/></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_st_raidsignups}</label></dt>
+		<dd><input type="checkbox" name="raidsignups" value="1" id="cb_raidsignups" class="chartTrigger"/></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_raids}</label></dt>
+		<dd><input type="checkbox" name="raids" value="1" id="cb_raids" class="chartTrigger" /></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_items}</label></dt>
+		<dd><input type="checkbox" name="items" value="1" id="cb_items" class="chartTrigger"/></dd>
+	</dl>
+</fieldset>
+
+
+
+

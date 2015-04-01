@@ -43,6 +43,9 @@ if (!class_exists('statistics_portal_hook')){
 			$m = $this->time->date("m");
 			$date = $this->time->mktime(0, 0, 0, $m, $d, $y);
 			
+			//Return if bot
+			if($this->env->is_bot($this->user->data['session_browser'])) return;
+			
 			//Update visits
 			if(!isset($this->user->data['session_vars']['visitCounted'])){
 				$sql = "INSERT	INTO __plugin_statistics

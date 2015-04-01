@@ -56,7 +56,7 @@ class statistics_portal extends portal_generic{
 				'view'	=> array(
 					'type'		=> 'multiselect',
 					'options'	=> array('today' => $this->user->lang('st_today'), 'total' => $this->user->lang('st_total'), 'records' => $this->user->lang('st_records')),
-					'default'	=> array('today'),
+					'default'	=> array('today', 'total'),
 				),
 		);
 		return $settings;
@@ -76,7 +76,7 @@ class statistics_portal extends portal_generic{
 		$this->getData();
 		
 		$arrView = $this->config('view');
-		if(!$arrView || !is_array($arrView)) $arrView = array('today');
+		if(!$arrView || !is_array($arrView)) $arrView = array('today', 'total');
 		
 		$output = '<table class="table fullwidth colorswitch">';
 		

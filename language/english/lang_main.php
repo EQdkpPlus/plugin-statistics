@@ -36,6 +36,7 @@ $lang = array(
 	// Portal
 	'statistics_name'						=> 'Statistics',
 	'statistics_desc'						=> 'Shows click and visit statistics.',
+	'st_f_view'								=> 'Select data to show',
 
 	// Description
 	'st_short_desc'							=> 'Statistics',

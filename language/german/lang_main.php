@@ -30,6 +30,7 @@ $lang = array(
 	// Portal
 	'statistics_name'						=> 'Statistiken',
 	'statistics_desc'						=> 'Zeigt Statistiken wie Besuche und Klicks an.',
+	'st_f_view'								=> 'Anzeigedaten auswählen',
 
 	// Description
 	'st_short_desc'							=> 'Statistiken',

@@ -38,6 +38,10 @@ $(document).ready(function(){
 		var is_user_regs = ($('#cb_user_regs').is(':checked')) ? 1 : 0;
 		var is_raidsignups = ($('#cb_raidsignups').is(':checked')) ? 1 : 0;
 		
+		 var searchIDs = $("input[name='external[]']:checked").map(function(){
+		        return $(this).val();
+		 }).toArray();
+		 
 		jQuery.ajax({
 			type: "POST",
 			url: "statistics.php{SID}&data=1",
@@ -50,6 +54,7 @@ $(document).ready(function(){
 				items: ($('#cb_items').is(':checked')) ? 1 : 0,
 				user_regs: ($('#cb_user_regs').is(':checked')) ? 1 : 0,
 				raidsignups: ($('#cb_raidsignups').is(':checked')) ? 1 : 0,
+				external: searchIDs,
 			}, 
 			cache: false,
 			dataType: "json",
@@ -120,6 +125,12 @@ $(document).ready(function(){
 		<dt><label>{L_items}</label></dt>
 		<dd><input type="checkbox" name="items" value="1" id="cb_items" class="chartTrigger"/></dd>
 	</dl>
+	<!-- BEGIN external_row -->
+	<dl>
+		<dt><label>{external_row.NAME}</label></dt>
+		<dd><input type="checkbox" name="external[]" value="{external_row.ID}" id="cb_external_{external_row.ID}" class="chartTrigger"/></dd>
+	</dl>
+	<!-- END external_row -->
 </fieldset>
 
 

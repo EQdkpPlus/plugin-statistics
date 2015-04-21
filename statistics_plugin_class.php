@@ -29,7 +29,7 @@ if (!defined('EQDKP_INC')){
   +--------------------------------------------------------------------------*/
 class statistics extends plugin_generic{
 
-	public $version		= '0.1.0';
+	public $version		= '0.2.0';
 	public $build		= '1';
 	public $copyright	= 'GodMod';
 	public $vstatus		= 'Beta';
@@ -71,6 +71,8 @@ class statistics extends plugin_generic{
 
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());
+		
+		$this->add_pdh_write_module('statistics_plugin');
 
 		// -- PDH Modules -------------------------------------
 		//$this->add_pdh_read_module('statistics');

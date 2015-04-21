@@ -150,6 +150,25 @@ class StatisticsViewer extends page_generic{
 			$out['raidsignups'] = array('label' => $this->user->lang('st_raidsignups'), 'data' => $arrRaidsignups);
 		}
 		
+		//External
+		$arrExternal = $this->in->getArray('external', 'string');
+		if(is_array($arrExternal)){
+		foreach($arrExternal as $strType){
+			$arrOut = $dateArray;
+			$objQuery = $this->db->prepare("SELECT * FROM __plugin_statistics_external WHERE name=? AND dateID >= ? AND dateID <= ?")->execute($strType, $date_from, $date_to);
+			if($objQuery){
+				while($row = $objQuery->fetchAssoc()){
+					$date = $this->timeformat($row['dateID']);
+					$intIndex = $indexArray[$date];
+					if($intIndex !== false){
+						$arrOut[$intIndex][1] = (int)$row['value'];
+					}
+				}
+			}
+			$out[$strType] = array('label' => $this->user->lang('plugin_statistics_'.$strType), 'data' => $arrOut);
+		}
+		}
+		
 		echo json_encode($out);
 		die();
 	}
@@ -185,6 +204,19 @@ class StatisticsViewer extends page_generic{
 			'FILTER_DATE_TO'		=> $this->jquery->Calendar('filter_date_to', $_date_to, '', array('change_year' => true,'change_month' => true,'other_months' => true, 'number_months' => 3,  'onclose' => ' $( "#cal_filter_date_from" ).datepicker( "option", "maxDate", selectedDate );')),		
 		));
 
+		$arrHooks = $this->hooks->process('plugin_statistics');
+		$arrExternal = array();
+		foreach($arrHooks as $strPlugin => $arrData){
+			$arrExternal = array_merge($arrExternal, $arrData);
+		}
+		
+		foreach($arrExternal as $strExternalKey){
+			$this->tpl->assign_block_vars('external_row', array(
+				'ID'	=> $strExternalKey,
+				'NAME'	=> $this->user->lang('plugin_statistics_'.$strExternalKey),	
+			));
+		}
+		
 		// -- EQDKP ---------------------------------------------------------------
 		$this->core->set_vars(array(
 			'page_title'	=> $this->user->lang('st_view_statistics'),

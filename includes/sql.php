@@ -26,15 +26,22 @@ if (!defined('EQDKP_INC')){
 $statisticsSQL = array(
 
 	'uninstall' => array(
-		'1'		=> 'DROP TABLE IF EXISTS `__plugin_statistics`',
+		1		=> 'DROP TABLE IF EXISTS `__plugin_statistics`',
+		2		=> 'DROP TABLE IF EXISTS `__plugin_statistics_external`',
 	),
 
 	'install'	=> array(
-		'1'	=> 'CREATE TABLE IF NOT EXISTS `__plugin_statistics` (
+		1	=> 'CREATE TABLE IF NOT EXISTS `__plugin_statistics` (
 				dateID INT(10) UNSIGNED NOT NULL DEFAULT 0,
 				visits INT(10) UNSIGNED NOT NULL DEFAULT 0,
 				clicks INT(10) UNSIGNED NOT NULL DEFAULT 0,
 				PRIMARY KEY (dateID)
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;',
+		2	=> 'CREATE TABLE IF NOT EXISTS `__plugin_statistics_external` (
+				dateID INT(10) UNSIGNED NOT NULL DEFAULT 0,
+				value INT(10) UNSIGNED NOT NULL DEFAULT 0,
+				name VARCHAR(50) NOT NULL DEFAULT \'\',
+				PRIMARY KEY (dateID, name)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;',
 	),
 );

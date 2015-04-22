@@ -52,7 +52,7 @@ class StatisticsViewer extends page_generic{
 
 	public function ajax_data(){		
 		$date_from = ($this->in->get('from') != "") ? $this->time->fromformat($this->in->get('from','1.1.1970').' 00:00', 1) : false;
-		$date_to = ($this->in->get('to') != "") ? $this->time->fromformat($this->in->get('to','1.1.1970').' 00:00', 1) : false;
+		$date_to = ($this->in->get('to') != "") ? $this->time->fromformat($this->in->get('to','1.1.1970').' 23:59', 1) : false;
 		//Build Date Array
 		$dateArray = array();
 		$indexArray = array();

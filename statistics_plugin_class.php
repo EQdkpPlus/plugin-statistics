@@ -29,7 +29,7 @@ if (!defined('EQDKP_INC')){
   +--------------------------------------------------------------------------*/
 class statistics extends plugin_generic{
 
-	public $version		= '0.2.1';
+	public $version		= '0.3.0';
 	public $build		= '1';
 	public $copyright	= 'GodMod';
 	public $vstatus		= 'Beta';
@@ -55,12 +55,12 @@ class statistics extends plugin_generic{
 			'long_description'	=> $this->user->lang('st_long_desc'),
 			'homepage'			=> EQDKP_PROJECT_URL,
 			'manuallink'		=> false,
-			'plus_version'		=> '2.0',
+			'plus_version'		=> '2.3',
 			'build'				=> $this->build,
 		));
 
 		$this->add_dependency(array(
-			'plus_version'		=> '2.0'
+			'plus_version'		=> '2.3'
 		));
 
 		// -- Register our permissions ------------------------

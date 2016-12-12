@@ -29,7 +29,7 @@ if (!defined('EQDKP_INC')){
   +--------------------------------------------------------------------------*/
 class statistics extends plugin_generic{
 
-	public $version		= '0.3.0';
+	public $version		= '0.2.0';
 	public $build		= '1';
 	public $copyright	= 'GodMod';
 	public $vstatus		= 'Beta';

@@ -222,6 +222,10 @@ class StatisticsViewer extends page_generic{
 			'page_title'	=> $this->user->lang('st_view_statistics'),
 			'template_path'	=> $this->pm->get_data('statistics', 'template_path'),
 			'template_file'	=> 'admin/statistics.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('st_view_statistics'), 'url'=>' '],
+				],
 			'display'		=> true
 		));
 	}
